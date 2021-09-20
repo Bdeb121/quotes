@@ -15,97 +15,88 @@
                 user-select: none;
             }
             body {
-                background: #546596;
+                background: #f1f3ff;
                 font-family: 'Itim', cursive;
             }
-            .container {
+            .container{
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+            }
+            .container .header{
+                display: flex;
+                flex-wrap: nowrap;
+                padding: 20px 10px 10px;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            .container .header::-webkit-scrollbar{
+                display: none;
+            }
+            .header .tag{
+                color: #696969;
+                font-size: 18px;
+                padding: 4px 10px;
+                margin-left: 10px;
+                border: 1px solid #191919;
+                border-radius: 20px;
+            }
+            .container .middle{
+                display: grid;
+                grid-template: '1fr 1fr 1fr 1fr';
+                padding: 16px;
+                grid-gap: 20px 20px;
+            }
+            .middle .card{
+                position: relative;
+                background: #f5f6fc;
+                border-radius: 8px;
+                box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.25);
                 display: flex;
                 flex-direction: column;
-                max-width: 640px;
-                margin: 0 auto;
-                margin-top: 50px;
-                padding: 10px 20px 20px;
-                box-shadow: 0 3px 5px 1px rgba(0, 0, 0, 0.2);
-                background-color: #f5f6fc;
-                border-radius: 12px;
-                position: relative;
+                transition: all 0.4s ease-in-out;
+                min-height: 120px;
             }
-            .header{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .header h1 {
-                font-weight: 500;
-                padding: 6px 0;
-                color: #191919;
-            }
-            .header .icon{
-                width: 24px;
-                height: 24px;
-                cursor: pointer;
-            }
-            .header .icon svg{
-                width: 24px;
-                height: 24px;
-                fill: #39393990;
-                transition: all 0.3s ease-in-out;
-            }
-            .header .icon svg.active path{
-                fill: #595959;
-                d: path('M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z'); 
-            }
-            ul {
-                border-top: 1px solid #a0a0a0;
-                border-bottom: 1px solid #a0a0a0;
-                padding: 6px 0px 6px 20px;
-                color: #393939;
-            }
-            li {
-                padding: 12px;
-                font-size: 24px;
-                list-style: none;
-            }
-            li::before{
-                content: '#';
-                position: absolute;
-                top: 48px;
-                left: 24px;
-                font-size: 72px;
-                color: #39393920;
-            }
-            li small{
-                float: right;
-                margin: 20px 0 10px;
-                color: #393939bb;
-            }
-            button {
-                align-self: flex-end;
-                margin-top: 16px;
-                padding: 6px 8px;
-                font-size: 18px;
-                font-family: 'Itim', cursive;
-                font-weight: 500;
-                background: #f7f8ff;
-                border: 1px solid #969696;
+            .card img{
+                width: 100%;
                 border-radius: 8px;
-                transition: all 0.2s ease-in-out;
-                cursor: pointer;
             }
-            button:hover {
-                background: #546596;
+            .card .text{
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 16px 20px;
+                background: rgba(0, 0, 0, 0.50);
+                border-radius: 8px;
+            }
+            .card .quote {
+                font-size: 20px;
+                color: #f1f3ff;
+                text-shadow: 20px 20px 20px rgba(0, 0, 0, 0.25);
+            }
+            .card .author {
+                margin-top: 10px;
+                font-size: 16px;
                 color: #f5f6fc;
-                border: 1px solid #546596;
+                text-align: end;
             }
-            @media(max-width: 640px){
-                .container {
-                    margin: 50px 10px 0;
+            .container .footer{
+
+            }
+            
+            @media (max-width: 1100px) {
+                .container .middle {
+                    grid-template: '1fr 1fr 1fr';
                 }
-                .header .icon{
-                    cursor: none;
+            }
+            @media (max-width: 900px) {
+                .container .middle {
+                    grid-template: '1fr 1fr';
                 }
-                button{
-                    cursor: none;
+            }
+            @media (max-width: 500px) {
+                .container .middle {
+                    grid-template: '1fr';
                 }
             }
         </style>
@@ -113,57 +104,49 @@
     <body>
         <div class="container">
             <div class="header">
-                <h1>Random Quote</h1>
-                <div class="icon">    
-                    <svg viewBox="0 0 448 512">
-                        <path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/>
-                    </svg>
-                </div>
+                <div class="tag">Inspirational</div>
+                <div class="tag">RealLife</div>
+                <div class="tag">Success</div>
+                <div class="tag">Love</div>
+                <div class="tag">Motivational</div>
+                <div class="tag">Surprize</div>
+                <div class="tag">Inspirational</div>
+                <div class="tag">RealLife</div>
+                <div class="tag">Success</div>
+                <div class="tag">Love</div>
+                <div class="tag">Motivational</div>
+                <div class="tag">Surprize</div>
             </div>
-            
-            <ul class="output"></ul>
-            <button class="get">Get Quote</button>
+            <div class="middle"></div>
+            <div class="footer"></div>
+              
         </div>
 
+
         <script>
-            let output = document.querySelector('.output');
-            let get = document.querySelector('.get');
-            let icon = document.querySelector('.icon');
+            let middle = document.querySelector('.middle');
 
-            async function fetchData() {
-                let data = await fetch('quotes.json');
-                let info = await data.json();
-
-                let num = Math.floor(Math.random() * info.length);
-
-                output.innerHTML = `<li>  ${info[num].text} <br> <small> --- ${info[num].author} ---</small> </li> `; 
-        
-                // copy text
-                icon.addEventListener('click', function() {
-                    let aux = document.createElement("input");
-                    aux.setAttribute("value", output.innerText);
-                    document.body.appendChild(aux);
-                    
-                    aux.select();
-                    document.execCommand("copy");
-                    
-                    document.body.removeChild(aux);
-
-                    // svg change
-                    icon.firstElementChild.classList.add('active');
-
-                    setTimeout(function () {
-                        icon.firstElementChild.classList.remove('active');
-                    }, 600);
-                });
-
-                
-            }
-
-            fetchData();
-
-            get.addEventListener('click', fetchData);
+            // Fetch Data From Api
+            fetch('quotes.json')
+            .then((resp) => {
+                return resp.json();
+            })
+            .then((data) => {
+                for (let i = 0; i < 100; i++) {
+                    middle.innerHTML += `
+                         <div class="card">
+                            <img src="https://picsum.photos/id/${500 + i}/600/400" alt="">
+                            <div class="text">
+                                <div class="quote">${data[i].text}</div>
+                                <div class="author"> -- ${data[i].author} -- </div>
+                            </div>
+                        </div>
+                    `   
+                } 
+            })
             
+            
+
         </script>
     </body>
 </html>
